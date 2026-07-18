@@ -9,7 +9,7 @@ axum-server = { version = "0.7", features = ["tls-rustls"] }
 bcrypt = "0.16"
 chrono = { version = "0.4", features = ["clock"] }
 dotenvy = "0.15"
-jsonwebtoken = "9"
+jsonwebtoken = "10"
 rusqlite = { version = "0.32", features = ["bundled"] }
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.150"
