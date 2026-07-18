@@ -1,3 +1,11 @@
+
+[![Rust](https://img.shields.io/badge/rust-1.70%2B-blue.svg)](https://www.rust-lang.org/)
+[![License](https://img.shields.io/github/license/MVerseZ/auth)](https://github.com/MVerseZ/auth/blob/master/LICENSE)
+[![Axum](https://img.shields.io/badge/axum-0.7-red.svg)](https://github.com/tokio-rs/axum)
+[![GitHub Stars](https://img.shields.io/github/stars/MVerseZ/auth)](https://github.com/MVerseZ/auth/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/MVerseZ/auth)](https://github.com/MVerseZ/auth/issues)
+[![Docker Pulls](https://img.shields.io/badge/docker-available-blue?logo=docker)](https://hub.docker.com/r/yourusername/auth) <!-- Замените ссылку, если выложите образ -->
+[![Crates.io](https://img.shields.io/badge/crates.io-not%20published-yellow)](https://crates.io/) <!-- Показывает, что пакет ещё не опубликован -->
 # auth
 
 Простой сервер аутентификации на Rust с Axum.
