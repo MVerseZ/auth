@@ -99,10 +99,21 @@ mod tests {
         body::Body,
         http::{Request, StatusCode},
     };
-    use std::fs;
+    use std::{
+        fs,
+        path::PathBuf,
+        sync::atomic::{AtomicUsize, Ordering},
+    };
     use tower::ServiceExt;
 
     use super::*;
+
+    static NEXT_DB_ID: AtomicUsize = AtomicUsize::new(0);
+
+    fn unique_test_db_path() -> PathBuf {
+        let id = NEXT_DB_ID.fetch_add(1, Ordering::Relaxed);
+        std::env::temp_dir().join(format!("auth-test-{}-{}.db", std::process::id(), id))
+    }
 
     #[test]
     fn validate_credentials_rejects_empty_username() {
@@ -150,7 +161,7 @@ mod tests {
 
     #[test]
     fn token_store_persists_and_reads_tokens() {
-        let db_path = std::env::temp_dir().join(format!("auth-test-{}.db", std::process::id()));
+        let db_path = unique_test_db_path();
         if db_path.exists() {
             let _ = fs::remove_file(&db_path);
         }
@@ -168,7 +179,7 @@ mod tests {
 
     #[test]
     fn token_store_replaces_and_revokes_tokens_for_user() {
-        let db_path = std::env::temp_dir().join(format!("auth-test-{}.db", std::process::id()));
+        let db_path = unique_test_db_path();
         if db_path.exists() {
             let _ = fs::remove_file(&db_path);
         }
@@ -196,7 +207,7 @@ mod tests {
 
     #[test]
     fn token_store_invalidates_token_without_deleting_other_tokens() {
-        let db_path = std::env::temp_dir().join(format!("auth-test-{}.db", std::process::id()));
+        let db_path = unique_test_db_path();
         let _ = fs::remove_file(&db_path);
 
         let store = TokenStore::new(db_path.to_str().unwrap()).unwrap();
